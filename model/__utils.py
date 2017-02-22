@@ -13,7 +13,8 @@ def get_result(result):
     """Double the one week result to two week.
     Args:
         @result: The pandas dataframe of result. Type: pandas.DataFrame
-
+    Return:
+        @df: The results dataframe. Type: pandas.DataFrame
     """
     if(len(result.shape)==1):
         df = pd.DataFrame(result,columns=[0])
@@ -27,12 +28,10 @@ def get_result(result):
 def select_days_range(start_date, end_date, data_pandas):
     """Select days range between two dates.
 
-
     Args:
         @start_date: The start date of select. Type: datetime
         @end_date: The end date of select.  Type: datetime
         @data_pandas: The data's dataframe.  Type: pandas.DataFrame
-
 
     Returns:
         @days_range: A dataframe to coressponding data fetched.
@@ -44,10 +43,8 @@ def select_days_range(start_date, end_date, data_pandas):
 def find_null(data_pandas):
     """Find the rows contains null value in data frame.
 
-
     Args:
         @data_pandas: The data's dataframe. Type: DataFrame
-
 
     Return:
         @null_rows: The list contained the index of rows contained null value.
@@ -60,15 +57,12 @@ def smooth_null(null_rows, data_pandas_need_smooth):
     """Smooth the null value in data frame. In this function the null value is \
         filled by the mean of row which the null value located.
 
-
     Args:
         @null_rows: The list contained the index of rows contained null value. Type: List
         @data_pandas_need_smooth: The data frame need to smooth the null value. Type: pandas.Dataframe
 
-
     Return:
         @data_pandas_need_smooth: The null has been smoothed.
-
 
     Raise:
         Error: The id list of shop_id whose null value cannot be smoothed. It will happen when\
@@ -87,11 +81,9 @@ def smooth_null(null_rows, data_pandas_need_smooth):
 def transfer_2dataframe(numpy_arr, col_name='col_'):
     """Transfer Numpy array to dataframe
 
-
     Args:
         @numpy_arr: The numpy array that need to be transfered. Type: Numpy.array
         @col_name: The col_name. The default value is 'col_'
-
 
     Return:
         @df: The dataframe that tranfer to.
@@ -106,15 +98,12 @@ def transfer_2dataframe(numpy_arr, col_name='col_'):
 def cal_offline_score(pre_y, real_y):
     """Calculte the offline score according to the score function on Tianchi.
 
-
     Args:
         @pre_y: The prediction value
         @real_y: The true value
 
-
     Return:
         @L: The offline score of the prediction.
-
 
     Raise:
         Error: When the shapes of prediction and real are different.
