@@ -112,9 +112,15 @@ def cal_offline_score(pre_y, real_y):
     assert pre_y.shape == real_y.shape
     for shop_index in range(pre_y.shape[0]):
         for day in range(pre_y.shape[1]):
-            score = (pre_y[shop_index][day]-real_y[shop_index][day])/\
-            (pre_y[shop_index][day]+real_y[shop_index][day])
-            score = abs(score)
+            c_it = pre_y[shop_index][day]
+            c_itg = real_y[shop_index][day]
+            # score = (pre_y[shop_index][day]-real_y[shop_index][day])/\
+            # (pre_y[shop_index][day]+real_y[shop_index][day])
+            if c_itg + c_it == 0:
+                c_itg = 1.
+                c_it = 1.
+            score = abs(cit - citg / c_itg + c_it)
             score_sum = score_sum + score
-    L = score_sum/(pre_y.shape[0]*pre_y.shape[1])
+    nT = pre_y.shape[0]*pre_y.shape[1]
+    L = score_sum / nT
     return L
