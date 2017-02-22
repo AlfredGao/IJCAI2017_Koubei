@@ -15,7 +15,7 @@ This repository is created for IJCAI2017 main track competition -- Customer Fore
 0. Poly=2 的每店每日销售额。 对于缺失的数据做了两点平滑
 1. train_feature['sum']: 时间窗内的销售额总数
 2. train_feature['mean']: 时间窗内的销售额均值
-3. train_feature['var']: 时间窗内的销售额方
+3. train_feature['var']: 时间窗内的销售额方差
 4. train_feature['weekend']: 时间窗内的周末的客流量占总数的比例
 5. train_feature['day_pay']: shop_list表中提供的店人均消费额
 6. train_feature['city_level']: 根据shop_list对店的城市信息做了分级
