@@ -32,10 +32,14 @@ best_p = GridSearchModel.best_params_
 print best_p
 
 test_feature = pd.read_csv('../../train/test_feature.csv')
-ExtraTree = ExtraTreesRegressor(n_estimators=int(best_p['n_estimators']),\
-random_state=(best_p['random_state']),n_jobs=int(best_p['n_jobs']),min_samples_split=int(best_p['min_samples_split']),\
-min_samples_leaf=int(best_p['min_samples_leaf']),max_depth=int(best_p['max_depth']),\
-max_features=int(best_p['max_features']))
+ExtraTree = ExtraTreesRegressor(n_estimators=int(best_p['n_estimators']),
+                                random_state=(best_p['random_state']),
+                                n_jobs=int(best_p['n_jobs']),
+                                min_samples_split=int(best_p['min_samples_split']),
+                                min_samples_leaf=int(best_p['min_samples_leaf']),
+                                max_depth=int(best_p['max_depth']),
+                                max_features=int(best_p['max_features']))
+                                
 ExtraTree.fit(train_feature, train_label)
 prediction = ExtraTree.predict(test_feature).round()
 result = get_result(prediction)
