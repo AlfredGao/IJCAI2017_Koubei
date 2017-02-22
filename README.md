@@ -10,7 +10,7 @@ This repository is created for IJCAI2017 main track competition -- Customer Fore
 
 ## 02/21/17 Random Forest Score: 0.084326
 - Grid Search 出的最佳参数：{'n_jobs': -1, 'min_samples_leaf': 2, 'n_estimators': 1200, 'min_samples_split': 2, 'random_state': 1, 'criterion': 'mse', 'max_features': 237, 'max_depth': 25}
-- 采用的Feature：
+### 采用的Feature：
 0. Poly=2 的每店每日销售额。 对于缺失的数据做了两点平滑
 1. train_feature['sum']: 时间窗内的销售额总数
 2. train_feature['mean']: 时间窗内的销售额均值
