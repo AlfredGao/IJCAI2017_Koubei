@@ -66,10 +66,57 @@ train_feature['var'] = train_var
 train_feature['weekend'] = train_weekend_ration
 train_feature['day_pay'] = train_day_pay
 train_feature['city_level'] = train_city_level
+
+
 # print train_feature
 train_feature.to_csv('../train/train_feature.csv')
 train_label.to_csv('../train/train_label.csv')
 # print train_weekend_ration
+train_feature['week1_mean'] = train_feature.loc[:,'col_0':'col_6'].mean(axis=1)
+train_feature['week2_mean'] = train_feature.loc[:,'col_7':'col_13'].mean(axis=1)
+train_feature['week3_mean'] = train_feature.loc[:,'col_14':'col_20'].mean(axis=1)
+
+#------------------------------START--170222------------------------------------
+train_feature = pd.read_csv('../train/train_feature.csv')
+train_feature = train_feature.rename(columns = {'Unnamed: 0':'shop_id'})
+train_feature['week1_mean'] = train_feature.loc[:,'col_0':'col_6'].mean(axis=1)
+train_feature['week2_mean'] = train_feature.loc[:,'col_7':'col_13'].mean(axis=1)
+train_feature['week3_mean'] = train_feature.loc[:,'col_14':'col_20'].mean(axis=1)
+train_feature['shop_id'] = train_feature['shop_id']+1
+shop_info = pd.read_csv('../dataset/preprocessed/shop_info_0221.csv')
+shop_info_cat = shop_info.loc[:,'cate_1':'cate_3']
+shop_info_cat['shop_id'] = shop_info['id']
+cat_statis = train_feature.merge(shop_info_cat,on='shop_id')
+cat_null = cat_statis['cate_3'].isnull().nonzero()
+
+#Create cate_3_week1_mean,cate_3_week2_mean,cate_3_week3_mean three features.
+train_feature['cate_3_week1_mean'] = 0
+train_feature['cate_3_week2_mean'] = 0
+train_feature['cate_3_week3_mean'] = 0
+
+
+#Fillna in cate_3 if it is null. Fill the value using 'cate_2'.
+for index in cat_null:
+    cat_statis['cate_3'].iloc[index] = cat_statis['cate_2'].iloc[index].values
+
+
+#Count the mean group by 'cate_3'.
+train_three_names = list(cat_statis.loc[:,'col_0':'col_20'].columns) + ['cate_3']
+train_three_week = cat_statis[train_three_names]
+cat_mean = train_three_week.groupby('cate_3').mean()
+cat_mean_week1 = cat_mean.loc[:,'col_0':'col_6'].mean(axis=1).to_dict()
+cat_mean_week2 = cat_mean.loc[:,'col_7':'col_13'].mean(axis=1).to_dict()
+cat_mean_week3 = cat_mean.loc[:,'col_14':'col_20'].mean(axis=1).to_dict()
+
+
+for index in range(2000):
+    train_feature['cate_3_week1_mean'].iloc[index] = cat_mean_week1[cat_statis['cate_3'].iloc[index]]
+    train_feature['cate_3_week2_mean'].iloc[index] = cat_mean_week2[cat_statis['cate_3'].iloc[index]]
+    train_feature['cate_3_week3_mean'].iloc[index] = cat_mean_week3[cat_statis['cate_3'].iloc[index]]
+
+
+train_feature.to_csv('train_feature_0222.csv')
+#--------------------------------END--170222------------------------------------
 
 
 test_feature_raw = week_2.join(week_3.join(week_4))
@@ -103,3 +150,40 @@ test_feature['city_level'] = test_city_level
 # print train_feature
 test_feature.to_csv('../train/test_feature.csv')
 # print train_weekend_ration
+
+
+#----------------------------------START--170222--------------------------------
+test_feature = pd.read_csv('../train/test_feature.csv')
+test_feature['week1_mean'] = test_feature.loc[:,'col_0':'col_6'].mean(axis=1)
+test_feature['week2_mean'] = test_feature.loc[:,'col_7':'col_13'].mean(axis=1)
+test_feature['week3_mean'] = test_feature.loc[:,'col_14':'col_20'].mean(axis=1)
+test_feature = test_feature.rename(columns = {'Unnamed: 0':'shop_id'})
+test_feature['shop_id'] = test_feature['shop_id']+1
+cat_statis_test = test_feature.merge(shop_info_cat,on='shop_id')
+cat_null_test = cat_statis_test['cate_3'].isnull().nonzero()
+
+test_feature['cate_3_week1_mean'] = 0
+test_feature['cate_3_week2_mean'] = 0
+test_feature['cate_3_week3_mean'] = 0
+
+
+for index in cat_null:
+    cat_statis_test['cate_3'].iloc[index] = cat_statis_test['cate_2'].iloc[index].values
+
+
+test_three_names = list(cat_statis_test.loc[:,'col_0':'col_20'].columns) + ['cate_3']
+test_three_week = cat_statis_test[test_three_names]
+cat_mean_test = test_three_week.groupby('cate_3').mean()
+cat_mean_week1_test = cat_mean_test.loc[:,'col_0':'col_6'].mean(axis=1).to_dict()
+cat_mean_week2_test = cat_mean_test.loc[:,'col_7':'col_13'].mean(axis=1).to_dict()
+cat_mean_week3_test = cat_mean_test.loc[:,'col_14':'col_20'].mean(axis=1).to_dict()
+
+
+for index in range(2000):
+    test_feature['cate_3_week1_mean'].iloc[index] = cat_mean_week1_test[cat_statis_test['cate_3'].iloc[index]]
+    test_feature['cate_3_week2_mean'].iloc[index] = cat_mean_week2_test[cat_statis_test['cate_3'].iloc[index]]
+    test_feature['cate_3_week3_mean'].iloc[index] = cat_mean_week3_test[cat_statis_test['cate_3'].iloc[index]]
+
+
+test_feature.to_csv('test_feature_0222.csv')
+#----------------------------------END--170222----------------------------------
