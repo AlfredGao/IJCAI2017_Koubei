@@ -20,6 +20,9 @@ This repository is created for IJCAI2017 main track competition -- Customer Fore
 5. train_feature['day_pay']: shop_list表中提供的店人均消费额
 6. train_feature['city_level']: 根据shop_list对店的城市信息做了分级
 
+## 02/21/17 Random Forest Score: 0.084515
+- Grid Search 出的最佳参数：{'n_jobs': -1, 'min_samples_leaf': 2, 'n_estimators': 1200, 'min_samples_split': 2, 'random_state': 1, 'criterion': 'mse', 'max_features': 243, 'max_depth': 25}
+
 ### 0222采用的Feature: 除以上以外，新增了
 
 7. train_feature['week1_mean'] '2016-09-20','2016-09-26'的均值
