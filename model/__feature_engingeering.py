@@ -187,3 +187,5 @@ for index in range(2000):
 
 test_feature.to_csv('test_feature_0222.csv')
 #----------------------------------END--170222----------------------------------
+#----------------------------------START--170223--------------------------------
+#Just Append the prediction to the last 2 week to be the new prediction set.
