@@ -32,3 +32,8 @@ This repository is created for IJCAI2017 main track competition -- Customer Fore
 11. train_feature['cate_3_week2_mean'] cate_3中每个种类在2016-10-11','2016-10-17'的均值
 12. train_feature['cate_3_week3_mean'] cate_3中每个种类在'2016-10-18','2016-10-24'的均值
 13. 对双十一进行了特殊处理... 手动增加了20%的客流量（我想的对不对？）感觉这部分应该是拉低了评分
+
+## 02/23/17 Random Forest Score: 0.08512558 失败的一天...
+
+14. 用最后三周预测出的11.1-11.07加上最后两周预测了11.08-11.04 线上0.08512558
+15. 加上了国庆的三周数据，血崩式结果， 线上0.08962909
