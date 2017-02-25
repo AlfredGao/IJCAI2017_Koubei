@@ -37,3 +37,19 @@ This repository is created for IJCAI2017 main track competition -- Customer Fore
 
 14. 用最后三周预测出的11.1-11.07加上最后两周预测了11.08-11.04 线上0.08512558
 15. 加上了国庆的三周数据，血崩式结果， 线上0.08962909
+
+## 02/24/17 Random Forest Score: 0.08424244
+
+16. 把所有之前的提交跟原始数据拼在了一起肉眼看
+17. 之前加了很多很多mean的feature, 所以预测出来的趋势在很多时候都只是在均值的基础上的一个小波动
+18. 所以今天加了一把跟max min有关的feature
+19. train_feature['week1_max'] 第一周的极大值
+20. train_feature['week1_min'] 第一周的极小值
+21. train_feature['week2_max'] 第二周的极大值
+22. train_feature['week2_min'] 第二周的极小值
+23. train_feature['week3_max'] 第三周的极大值
+24. train_feature['week3_min'] 第三周的极小值
+25. train_feature['allweek_max'] 所有周的极大值
+26. train_feature['allweek_min'] 所有周的极小值
+27. 仔细对比了17224预测的结果和17221的结果，发现只是在每个周期的peak处往上浮动了一点点，所以我在猜测，我们的分数和真实值的差距是不是就是这部分？
+28. 唉 模型再好有毛用，哪玩的过规则。
