@@ -113,10 +113,30 @@ for index in range(2000):
     train_feature['cate_3_week1_mean'].iloc[index] = cat_mean_week1[cat_statis['cate_3'].iloc[index]]
     train_feature['cate_3_week2_mean'].iloc[index] = cat_mean_week2[cat_statis['cate_3'].iloc[index]]
     train_feature['cate_3_week3_mean'].iloc[index] = cat_mean_week3[cat_statis['cate_3'].iloc[index]]
-
-
-train_feature.to_csv('train_feature_0222.csv')
 #--------------------------------END--170222------------------------------------
+
+
+#-------------------------------START--170224-----------------------------------
+week1_max = train_feature.loc[:,'col_0':'col_6'].max(axis=1)
+week1_min = train_feature.loc[:,'col_0':'col_6'].min(axis=1)
+week2_max = train_feature.loc[:,'col_7':'col_13'].max(axis=1)
+week2_min = train_feature.loc[:,'col_7':'col_13'].min(axis=1)
+week3_max = train_feature.loc[:,'col_14':'col_20'].max(axis=1)
+week3_min = train_feature.loc[:,'col_14':'col_20'].min(axis=1)
+# week6_max = train_feature_23.loc[:,'col_7':'col_13'].max(axis=1)
+# week6_min = train_feature_23.loc[:,'col_7':'col_13'].min(axis=1)
+train_feature['week1_max'] = week1_max
+train_feature['week1_min'] = week1_min
+train_feature['week2_max'] = week2_max
+train_feature['week2_min'] = week2_min
+train_feature['week3_max'] = week3_max
+train_feature['week3_min'] = week3_min
+train_feature['allweek_max'] = train_feature_23.loc[:,'col_0':'col_20'].max(axis=1)
+train_feature['allweek_min'] = train_feature_23.loc[:,'col_0':'col_20'].min(axis=1)
+#---------------------------------END--170224-----------------------------------
+
+train_feature.to_csv('train_feature_0224.csv')
+
 
 
 test_feature_raw = week_2.join(week_3.join(week_4))
@@ -185,7 +205,26 @@ for index in range(2000):
     test_feature['cate_3_week3_mean'].iloc[index] = cat_mean_week3_test[cat_statis_test['cate_3'].iloc[index]]
 
 
-test_feature.to_csv('test_feature_0222.csv')
+
 #----------------------------------END--170222----------------------------------
-#----------------------------------START--170223--------------------------------
+#----------------------------------START--170224--------------------------------
 #Just Append the prediction to the last 2 week to be the new prediction set.
+week1_max = test_feature_23.loc[:,'col_0':'col_6'].max(axis=1)
+week1_min = test_feature_23.loc[:,'col_0':'col_6'].min(axis=1)
+week2_max = test_feature_23.loc[:,'col_7':'col_13'].max(axis=1)
+week2_min = test_feature_23.loc[:,'col_7':'col_13'].min(axis=1)
+week3_max = test_feature_23.loc[:,'col_14':'col_20'].max(axis=1)
+week3_min = test_feature_23.loc[:,'col_14':'col_20'].min(axis=1)
+# week6_max = train_feature_23.loc[:,'col_7':'col_13'].max(axis=1)
+# week6_min = train_feature_23.loc[:,'col_7':'col_13'].min(axis=1)
+test_feature_23['week1_max'] = week1_max
+test_feature_23['week1_min'] = week1_min
+test_feature_23['week2_max'] = week2_max
+test_feature_23['week2_min'] = week2_min
+test_feature_23['week3_max'] = week3_max
+test_feature_23['week3_min'] = week3_min
+test_feature_23['allweek_max'] = train_feature_23.loc[:,'col_0':'col_20'].max(axis=1)
+test_feature_23['allweek_min'] = train_feature_23.loc[:,'col_0':'col_20'].min(axis=1)
+#----------------------------------END--170224----------------------------------
+
+test_feature.to_csv('test_feature_0222.csv')
