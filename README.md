@@ -53,3 +53,6 @@ This repository is created for IJCAI2017 main track competition -- Customer Fore
 26. train_feature['allweek_min'] 所有周的极小值
 27. 仔细对比了17224预测的结果和17221的结果，发现只是在每个周期的peak处往上浮动了一点点，所以我在猜测，我们的分数和真实值的差距是不是就是这部分？
 28. 唉 模型再好有毛用，哪玩的过规则。
+
+## 02/25/17 Random Forest Score + Rule: 0.08405218
+29. 黔驴技穷的做了一件非常unscientific的事情,加了四个median的feature之后，预测的结果手乘了1.00375... 然后就迷之上升了...
